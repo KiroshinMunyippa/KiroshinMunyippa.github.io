@@ -221,9 +221,7 @@
       </div>
 
       <form class="contact-form reveal" id="contact-form">
-        <input type="hidden" name="_subject" value="New portfolio contact message">
-        <input type="hidden" name="_captcha" value="false">
-
+        
         <label for="name">Name</label>
         <input id="name" name="name" type="text" placeholder="Your name" required>
 
@@ -243,28 +241,43 @@
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <script>
+document.addEventListener("DOMContentLoaded", function () {
+
   emailjs.init("H3WWE6yglqua-qBBz");
 
   const form = document.getElementById("contact-form");
   const status = document.querySelector(".form-status");
 
-  form.addEventListener("submit", function(event) {
+  form.addEventListener("submit", function (event) {
+
     event.preventDefault();
+    event.stopPropagation();
+
+    status.textContent = "Sending...";
 
     emailjs.sendForm(
       "service_sqgmyfg",
       "template_e7mb7l7",
-      this
+      form
     )
-    .then(() => {
+    .then(function () {
+
       status.textContent = "Message sent successfully!";
       form.reset();
+
     })
-    .catch((error) => {
+    .catch(function (error) {
+
       status.textContent = "Failed to send message.";
-      console.log(error);
+      console.log("EmailJS Error:", error);
+
     });
+
+    return false;
+
   });
+
+});
 </script>
 </body>
 </html>
