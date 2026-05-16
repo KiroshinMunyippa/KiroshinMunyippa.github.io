@@ -262,10 +262,20 @@ document.addEventListener("DOMContentLoaded", function () {
     )
     .then(function () {
 
-      status.textContent = "Message sent successfully!";
-      form.reset();
+  emailjs.send(
+    "service_sqgmyfg",
+    "template_lxchori",
+    {
+      name: form.name.value,
+      email: form.email.value,
+      message: form.message.value
+    }
+  );
 
-    })
+  status.textContent = "Message sent successfully!";
+  form.reset();
+
+})
     .catch(function (error) {
 
       status.textContent = "Failed to send message.";
