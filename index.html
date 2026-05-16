@@ -269,20 +269,24 @@ document.addEventListener("DOMContentLoaded", function () {
       "template_e7mb7l7",
       form
     )
-    .then(function () {
+   .then(function () {
 
-      // 2. Send AUTO-REPLY to visitor
-      return emailjs.send(
-        "service_sqgmyfg",
-        "template_lxchori",
-        {
-          name: form.name.value,
-          email: form.email.value,
-          message: form.message.value
-        }
-      );
+  gtag('event', 'contact_form_submit', {
+    event_category: 'engagement',
+    event_label: 'portfolio_contact'
+  });
 
-    })
+  return emailjs.send(
+    "service_sqgmyfg",
+    "template_lxchori",
+    {
+      name: form.name.value,
+      email: form.email.value,
+      message: form.message.value
+    }
+  );
+
+})
     .then(function () {
 
       status.textContent = "Message sent successfully!";
