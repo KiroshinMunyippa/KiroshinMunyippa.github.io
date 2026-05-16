@@ -71,7 +71,17 @@
 
         <div class="hero-actions">
           <a class="button button-primary" href="#experience">View Experience</a>
-          <a class="button button-secondary" href="assets/Kiroshin_2026.pdf" download="Kiroshin_2026.pdf">Download CV</a>
+          <a
+  class="button button-secondary"
+  href="assets/Kiroshin_2026.pdf"
+  download="Kiroshin_2026.pdf"
+  onclick="gtag('event', 'cv_download', {
+    event_category: 'engagement',
+    event_label: 'Kiroshin CV'
+  })"
+>
+  Download CV
+</a>
         </div>
 
         <div class="hero-metrics">
