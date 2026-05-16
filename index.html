@@ -240,5 +240,31 @@
   </main>
 
   <script src="animations.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+  emailjs.init("H3WWE6yglqua-qBBz");
+
+  const form = document.getElementById("contact-form");
+  const status = document.querySelector(".form-status");
+
+  form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    emailjs.sendForm(
+      "service_sqgmyfg",
+      "template_e7mb7l7",
+      this
+    )
+    .then(() => {
+      status.textContent = "Message sent successfully!";
+      form.reset();
+    })
+    .catch((error) => {
+      status.textContent = "Failed to send message.";
+      console.log(error);
+    });
+  });
+</script>
 </body>
 </html>
