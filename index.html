@@ -249,12 +249,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const status = document.querySelector(".form-status");
 
   form.addEventListener("submit", function (event) {
-
     event.preventDefault();
-    event.stopPropagation();
 
     status.textContent = "Sending...";
 
+    // 1. Send message TO YOU
     emailjs.sendForm(
       "service_sqgmyfg",
       "template_e7mb7l7",
@@ -262,28 +261,30 @@ document.addEventListener("DOMContentLoaded", function () {
     )
     .then(function () {
 
-  emailjs.send(
-    "service_sqgmyfg",
-    "template_lxchori",
-    {
-      name: form.name.value,
-      email: form.email.value,
-      message: form.message.value
-    }
-  );
+      // 2. Send AUTO-REPLY to visitor
+      return emailjs.send(
+        "service_sqgmyfg",
+        "template_lxchori",
+        {
+          name: form.name.value,
+          email: form.email.value,
+          message: form.message.value
+        }
+      );
 
-  status.textContent = "Message sent successfully!";
-  form.reset();
+    })
+    .then(function () {
 
-})
+      status.textContent = "Message sent successfully!";
+      form.reset();
+
+    })
     .catch(function (error) {
 
       status.textContent = "Failed to send message.";
       console.log("EmailJS Error:", error);
 
     });
-
-    return false;
 
   });
 
