@@ -4,17 +4,41 @@
   --text: #f7fbff;
   --muted: rgba(231, 240, 252, 0.78);
   --line: rgba(255, 255, 255, 0.16);
+  --line-strong: rgba(255, 255, 255, 0.24);
+
+  --glass-bg:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.18),
+      rgba(255, 255, 255, 0.07)
+    ),
+    rgba(228, 239, 255, 0.08);
+
   --shadow: 0 26px 70px rgba(0, 0, 0, 0.34);
-  --shadow-soft: 0 1px 0 rgba(255, 255, 255, 0.22) inset, 0 18px 44px rgba(255, 255, 255, 0.04) inset;
+
+  --shadow-soft:
+    0 1px 0 rgba(255, 255, 255, 0.22) inset,
+    0 18px 44px rgba(255, 255, 255, 0.04) inset;
 }
 
-* {
+/* ---------- Base ---------- */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  background: var(--bg);
 }
 
 body {
   margin: 0;
-  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
   color: var(--text);
   font-family: "Outfit", sans-serif;
   background:
@@ -39,7 +63,11 @@ body::before {
   left: -8%;
   width: 22rem;
   height: 22rem;
-  background: radial-gradient(circle, rgba(129, 191, 255, 0.16), rgba(129, 191, 255, 0));
+  background: radial-gradient(
+    circle,
+    rgba(129, 191, 255, 0.16),
+    rgba(129, 191, 255, 0)
+  );
 }
 
 body::after {
@@ -47,7 +75,11 @@ body::after {
   bottom: 10%;
   width: 24rem;
   height: 24rem;
-  background: radial-gradient(circle, rgba(183, 239, 255, 0.12), rgba(183, 239, 255, 0));
+  background: radial-gradient(
+    circle,
+    rgba(183, 239, 255, 0.12),
+    rgba(183, 239, 255, 0)
+  );
 }
 
 a {
@@ -55,9 +87,22 @@ a {
   text-decoration: none;
 }
 
+/* ---------- Moving background support ---------- */
+
+#particle-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  display: block;
+  z-index: 0;
+  pointer-events: none;
+}
+
 .page-noise {
   position: fixed;
   inset: 0;
+  z-index: 1;
   opacity: 0.06;
   pointer-events: none;
   background-image:
@@ -67,17 +112,20 @@ a {
   mask-image: radial-gradient(circle at center, black 50%, transparent 92%);
 }
 
+/* ---------- Layout ---------- */
+
 .detail-shell {
-  width: min(1080px, calc(100% - 2rem));
+  position: relative;
+  z-index: 2;
+  width: min(1440px, calc(100% - 10%));
+  min-height: 100dvh;
   margin: 0 auto;
-  padding: 2rem 0 4rem;
+  padding: 4rem 0 5rem;
 }
 
 .back-link,
 .glass-card {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.07)),
-    rgba(228, 239, 255, 0.08);
+  background: var(--glass-bg);
   border: 1px solid var(--line);
   box-shadow: var(--shadow), var(--shadow-soft);
   backdrop-filter: blur(26px) saturate(170%);
@@ -86,12 +134,28 @@ a {
 
 .back-link {
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 0.85rem 1.1rem;
   border-radius: 999px;
+  color: rgba(247, 251, 255, 0.82);
+  font-weight: 700;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
 }
 
+.back-link:hover {
+  color: #ffffff;
+  border-color: var(--line-strong);
+  transform: translateY(-1px);
+}
+
+/* ---------- Hero ---------- */
+
 .detail-hero {
-  padding: 2rem 0 1.5rem;
+  padding: 3rem 0 3.5rem;
 }
 
 .eyebrow,
@@ -112,8 +176,9 @@ a {
 }
 
 .detail-hero h1 {
-  font-size: clamp(2.6rem, 7vw, 5rem);
-  line-height: 0.95;
+  max-width: 1100px;
+  font-size: clamp(4rem, 10vw, 9rem);
+  line-height: 0.9;
 }
 
 .detail-meta,
@@ -126,17 +191,39 @@ a {
 
 .detail-meta {
   margin: 0 0 1rem;
+  font-size: 1.05rem;
+  font-weight: 600;
 }
+
+.detail-summary {
+  max-width: 760px;
+  margin-top: 1.2rem;
+  font-size: 1.05rem;
+}
+
+/* ---------- Cards ---------- */
 
 .detail-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.25rem;
+  gap: 1.6rem;
+  align-items: stretch;
 }
 
 .glass-card {
-  padding: 1.6rem;
+  min-height: 300px;
+  padding: 2.1rem;
   border-radius: 32px;
+}
+
+.glass-card h2 {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  line-height: 1.1;
+}
+
+.glass-card p {
+  margin: 1.2rem 0 0;
+  font-size: 1.02rem;
 }
 
 .glass-card ul {
@@ -144,12 +231,120 @@ a {
   padding-left: 1.2rem;
 }
 
+.glass-card li {
+  font-size: 1.02rem;
+  margin-bottom: 0.45rem;
+}
+
+/* Makes the bottom card the same width as the two cards above */
+.full-width-card {
+  grid-column: 1 / -1;
+}
+
 .detail-notes {
   margin-top: 1.25rem;
 }
 
-@media (max-width: 780px) {
+/* =========================================================
+   TABLET / MOBILE
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .detail-shell {
+    width: 100%;
+    min-height: 100dvh;
+    padding:
+      calc(env(safe-area-inset-top) + 3rem)
+      6%
+      calc(env(safe-area-inset-bottom) + 4rem);
+  }
+
+  .back-link {
+    margin-bottom: 2.4rem;
+  }
+
+  .detail-hero {
+    padding: 0 0 2.4rem;
+  }
+
+  .detail-hero h1 {
+    font-size: clamp(3.4rem, 16vw, 6rem);
+    line-height: 0.92;
+  }
+
+  .detail-meta {
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  .detail-summary {
+    font-size: 0.98rem;
+  }
+
   .detail-grid {
     grid-template-columns: 1fr;
+    gap: 1.35rem;
+  }
+
+  .full-width-card {
+    grid-column: auto;
+  }
+
+  .glass-card {
+    width: 100%;
+    min-height: auto;
+    padding: 1.6rem;
+    border-radius: 26px;
+  }
+
+  .glass-card h2 {
+    font-size: 1.8rem;
+  }
+
+  .glass-card p,
+  .glass-card li {
+    font-size: 0.98rem;
+  }
+}
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 480px) {
+  .detail-shell {
+    padding:
+      calc(env(safe-area-inset-top) + 2.5rem)
+      5%
+      calc(env(safe-area-inset-bottom) + 3.5rem);
+  }
+
+  .back-link {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .detail-hero h1 {
+    font-size: 3.5rem;
+  }
+
+  .eyebrow,
+  .card-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+  }
+
+  .glass-card {
+    padding: 1.4rem;
+    border-radius: 24px;
+  }
+
+  .glass-card h2 {
+    font-size: 1.65rem;
+  }
+
+  .glass-card p,
+  .glass-card li {
+    font-size: 0.95rem;
   }
 }
