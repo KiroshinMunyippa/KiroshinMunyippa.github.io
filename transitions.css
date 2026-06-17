@@ -1,0 +1,107 @@
+.reveal {
+  opacity: 0;
+  transform: translateY(32px) scale(0.98);
+  transition:
+    opacity 700ms ease,
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.button,
+.site-nav a,
+.mobile-menu a,
+.project-card,
+.project-links a,
+.skill-card,
+.about-card,
+.metric-card,
+.contact-form,
+.contact-form input,
+.contact-form textarea,
+.brand,
+.menu-toggle {
+  transition:
+    transform 260ms ease,
+    background-color 260ms ease,
+    border-color 260ms ease,
+    color 260ms ease,
+    box-shadow 260ms ease,
+    backdrop-filter 260ms ease;
+}
+
+.nav-slider {
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    width 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 240ms ease,
+    box-shadow 260ms ease;
+}
+
+.button:hover,
+.project-links a:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 18px 34px rgba(80, 133, 196, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.button:focus-visible,
+.project-links a:focus-visible,
+.site-nav a:focus-visible,
+.mobile-menu a:focus-visible,
+.contact-form input:focus-visible,
+.contact-form textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.about-card:hover,
+.skill-card:hover,
+.contact-form:hover {
+  transform: translateY(-6px) scale(1.01);
+  border-color: rgba(255, 255, 255, 0.46);
+  box-shadow:
+    0 22px 44px rgba(83, 132, 194, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.project-card:hover {
+  border-color: rgba(255, 255, 255, 0.48);
+  box-shadow:
+    0 28px 52px rgba(84, 130, 190, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.34);
+}
+
+.project-card:hover .project-glow {
+  transform: scale(1.08);
+}
+
+.project-glow {
+  transition: transform 300ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .button,
+  .site-nav a,
+  .mobile-menu a,
+  .project-card,
+  .project-links a,
+  .skill-card,
+  .about-card,
+  .metric-card,
+  .contact-form input,
+  .contact-form textarea,
+  .project-glow,
+  .contact-form,
+  .brand,
+  .menu-toggle,
+  .nav-slider {
+    transition: none;
+  }
+}
