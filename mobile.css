@@ -868,3 +868,41 @@ body.menu-open {
     justify-content: flex-end !important;
   }
 }
+/* =========================================================
+   MOBILE WHITE BAR / SAFE AREA FIX
+   ========================================================= */
+
+html,
+body {
+  min-height: 100%;
+  background: #071426 !important;
+}
+
+body {
+  min-height: 100dvh;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Make sure the canvas/background reaches behind safe areas */
+#particle-canvas,
+.page-noise {
+  position: fixed;
+  inset: 0;
+}
+
+/* Keeps the site background dark behind iPhone notch/home areas */
+@supports (padding: env(safe-area-inset-top)) {
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -9999;
+    background: #071426;
+  }
+}
+
+/* Footer spacing so content does not sit behind Safari bottom area */
+.site-footer {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 34px) !important;
+}
