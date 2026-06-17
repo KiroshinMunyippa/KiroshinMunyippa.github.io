@@ -706,3 +706,44 @@ textarea {
     flex-direction: column;
   }
 }
+.privacy-page {
+  min-height: 100vh;
+  padding: 120px 8% 60px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.privacy-page .glass-card {
+  max-width: 900px;
+  width: 100%;
+}
+
+.privacy-page h1,
+.privacy-page h2 {
+  margin-top: 24px;
+}
+
+.privacy-page p,
+.privacy-page li {
+  line-height: 1.7;
+}
+
+.privacy-page ul {
+  padding-left: 22px;
+}
+
+.site-footer {
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.site-footer a {
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.site-footer a:hover {
+  opacity: 1;
+}
